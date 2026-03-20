@@ -1,0 +1,1 @@
+username,date,type,duration_mins,intensity
