@@ -1,0 +1,73 @@
+@startuml
+start
+
+:Initialize Window;
+:Set State current_user_value = "";
+
+partition "Login Screen (loginFrame)" {
+    :Display Username & Password fields;
+    if (User action?) then (Register)
+        :registerNOW();
+        :Get Username and Password;
+        if (Fields Empty?) then (Yes)
+            :Show "enter all fields";
+        else (No)
+            :Append to "users.txt";
+            :Show "registered done";
+        endif
+    else (Login)
+        :loginNOW();
+        :Get Username and Password;
+        if (Read "users.txt" successful?) then (Yes)
+            if (Credentials in file?) then (Yes)
+                :current_user_value = Username;
+                :Hide loginFrame;
+                :Show menuFrame;
+            else (No)
+                :Show "wrong login";
+            endif
+        else (No / File Error)
+            :Show "file not found";
+        endif
+    endif
+}
+
+while (Inside Dashboard (menuFrame)?) is (Yes)
+    partition "Dashboard Actions" {
+        switch (User choice?)
+        case (Save Activity)
+            :saveAct();
+            :Get Activity, Duration, Intensity;
+            if (Fields Empty?) then (Yes)
+                :Show "enter activity full";
+            else (No)
+                :Append to "fitness.txt" (ACT);
+                :Show "activity saved ok";
+            endif
+        case (Save Food)
+            :saveFoodNOW();
+            :Get Food, Calories;
+            if (Fields Empty?) then (Yes)
+                :Show "enter food data";
+            else (No)
+                :Append to "fitness.txt" (FOOD);
+                :Show "food saved ok";
+            endif
+        case (View Data)
+            :showDataNOW();
+            :Clear output;
+            if (Read "fitness.txt" successful?) then (Yes)
+                :Loop through lines;
+                if (Line contains current_user_value?) then (Yes)
+                    :Append line to output;
+                else (No)
+                endif
+            else (No / File Error)
+                :Show "file missing";
+            endif
+        endswitch
+    }
+endwhile (No)
+
+stop
+@enduml

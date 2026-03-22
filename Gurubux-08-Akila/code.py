@@ -9,9 +9,11 @@ CU = ""
 fA = Frame(main)
 fA.pack()
 
+Label(fA, text="Username:").pack()
 eU = Entry(fA)
 eU.pack()
 
+Label(fA, text="Password:").pack()
 eP = Entry(fA)
 eP.pack()
 
@@ -20,12 +22,16 @@ msg.pack()
 
 fB = Frame(main)
 
+Label(fB, text="Activity Type:").pack()
 t1 = Entry(fB)
-t2 = Entry(fB)
-t3 = Entry(fB)
-
 t1.pack()
+
+Label(fB, text="Duration Time:").pack()
+t2 = Entry(fB)
 t2.pack()
+
+Label(fB, text="Intensity Level:").pack()
+t3 = Entry(fB)
 t3.pack()
 
 outB = Text(fB,height=15,width=50)
@@ -49,6 +55,20 @@ def goLogin():
     CU = u
     fA.pack_forget()
     fB.pack()
+ except:
+  msg.config(text="err")
+
+
+def goRegister():
+
+ u = eU.get().strip()
+ p = eP.get().strip()
+
+ try:
+  f = open("users.txt","a")
+  f.write(u + "," + p + "\n")
+  f.close()
+  msg.config(text="success")
  except:
   msg.config(text="err")
 
@@ -90,6 +110,7 @@ def goView():
 
 
 Button(fA,text="login",command=goLogin).pack()
+Button(fA,text="register",command=goRegister).pack()
 Button(fB,text="save",command=goSave).pack()
 Button(fB,text="view",command=goView).pack()
 
