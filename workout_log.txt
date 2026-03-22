@@ -1,1 +1,0 @@
-username,date,exercise,duration_min,effort

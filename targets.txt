@@ -1,1 +1,0 @@
-username,target_type,goal_value,progress_value
