@@ -5,14 +5,8 @@ WinMainAPP = Tk()
 WinMainAPP.title("fitness tracker thing")  
 
 
-# files
-user_file_name_data = "users.txt"
-data_FILE_storage = "fitness.txt"
-
 # global user
 current_user_value = ""  
-
-
 
 # login function
 def loginNOW():  
@@ -23,7 +17,7 @@ def loginNOW():
  p = pass_input_box.get().strip()
 
  try:
-  f = open(user_file_name_data , "r")
+  f = open("users.txt" , "r")
   data = f.read().strip()
   f.close()
 
@@ -50,7 +44,7 @@ def registerNOW():
      msg_label.config(text="enter all fields pls")
      return  
 
- f = open(user_file_name_data,"a")
+ f = open("users.txt","a")
 
  # saving user
  f.write(u + "," + p + "\n")
@@ -72,7 +66,7 @@ def saveAct():
       output_box.insert(END,"\nenter activity full\n")
       return  
 
- f = open(data_FILE_storage,"a")
+ f = open("fitness.txt","a")
 
  f.write(current_user_value + ",ACT," + act_val + "," + dur_val + "," + int_val + "\n")
 
@@ -92,7 +86,7 @@ def saveFoodNOW():
      output_box.insert(END,"\nenter food data\n")
      return  
 
- f = open(data_FILE_storage,"a")
+ f = open("fitness.txt","a")
 
  f.write(current_user_value + ",FOOD," + food_val + "," + cal_val + "\n")
 
@@ -108,7 +102,7 @@ def showDataNOW():
  output_box.delete(1.0 , END)
 
  try:
-   f = open(data_FILE_storage,"r")
+   f = open("fitness.txt","r")
    data_all = f.read().strip()
    f.close()
 
@@ -187,4 +181,5 @@ output_box = Text(menuFrame , height=15 , width=50)
 output_box.pack()
 
 
-WinMainAPP.mainloop()
+if __name__ == "__main__":
+    WinMainAPP.mainloop()

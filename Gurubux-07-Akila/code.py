@@ -3,9 +3,6 @@ from tkinter import *
 win = Tk()
 win.title("fitness mixed")
 
-fileU = "u.txt"
-fileD = "d.txt"
-
 cur = ""
 
 # function for login
@@ -16,7 +13,7 @@ def loginA():
  p = pBox.get().strip()
 
  try:
-  f = open(fileU,"r")
+  f = open("u.txt","r")
   data = f.read().strip()
   f.close()
 
@@ -43,7 +40,7 @@ Button(fr1,text="login",command=loginA).pack()
 
 # inline register (no function)
 def regX():
- f = open(fileU,"a")
+ f = open("u.txt","a")
  f.write(uBox.get().strip() + "," + pBox.get().strip() + "\n")
  f.close()
 
@@ -73,7 +70,7 @@ def saveX():
  for i in data:
     pass   # useless loop beginner style
 
- f = open(fileD,"a")
+ f = open("d.txt","a")
  f.write(cur + ",X," + act.get().strip() + "," + dur.get().strip() + "\n")
  f.close()
 
@@ -88,7 +85,7 @@ def viewX():
  txt.delete(1.0,END)
 
  try:
-  f = open(fileD,"r")
+  f = open("d.txt","r")
   lines = f.readlines()
   f.close()
 

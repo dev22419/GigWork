@@ -3,9 +3,6 @@ from tkinter import *
 main = Tk()
 main.title("tracker while style")
 
-UF = "users.txt"
-DF = "data.txt"
-
 CU = ""
 
 # UI first (functions later)
@@ -44,7 +41,7 @@ def goLogin():
  p = eP.get().strip()
 
  try:
-  f = open(UF,"r")
+  f = open("users.txt","r")
   d = f.read().strip()
   f.close()
 
@@ -62,7 +59,7 @@ def goSave():
  b = t2.get().strip()
  c = t3.get().strip()
 
- f = open(DF,"a")
+ f = open("data.txt","a")
  f.write(CU + ",DATA," + a + "," + b + "," + c + "\n")
  f.close()
 
@@ -74,7 +71,7 @@ def goView():
  outB.delete(1.0,END)
 
  try:
-  f = open(DF,"r")
+  f = open("data.txt","r")
   d = f.read().strip()
   f.close()
 
@@ -96,4 +93,5 @@ Button(fA,text="login",command=goLogin).pack()
 Button(fB,text="save",command=goSave).pack()
 Button(fB,text="view",command=goView).pack()
 
-main.mainloop()
+if __name__ == "__main__":
+    main.mainloop()

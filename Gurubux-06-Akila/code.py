@@ -4,8 +4,6 @@ from tkinter import *
 appWin = Tk()
 appWin.title("fit app no func")
 
-uFile = "users.txt"
-dFile = "data.txt"
 
 curUser = ""
 
@@ -46,7 +44,7 @@ def btn1():
  p = pE.get().strip()
 
  try:
-  f = open(uFile,"r")
+  f = open("users.txt","r")
   d = f.read().strip()
   f.close()
 
@@ -67,7 +65,7 @@ def btn2():
  u = uE.get().strip()
  p = pE.get().strip()
 
- f = open(uFile,"a")
+ f = open("users.txt","a")
  f.write(u + "," + p + "\n")
  f.close()
 
@@ -95,7 +93,7 @@ def b3():
  d = dE.get().strip()
  i = iE.get().strip()
 
- f = open(dFile,"a")
+ f = open("data.txt","a")
  f.write(curUser + ",A," + a + "," + d + "," + i + "\n")
  f.close()
 
@@ -106,7 +104,7 @@ Button(f2,text="save act",command=b3).pack()
 
 # save food inline
 def b4():
- f = open(dFile,"a")
+ f = open("data.txt","a")
  f.write(curUser + ",F," + fE.get().strip() + "," + cE.get().strip() + "\n")
  f.close()
 
@@ -120,7 +118,7 @@ def b5():
  out.delete(1.0,END)
 
  try:
-  f = open(dFile,"r")
+  f = open("data.txt","r")
   lines = f.readlines()
   f.close()
 
