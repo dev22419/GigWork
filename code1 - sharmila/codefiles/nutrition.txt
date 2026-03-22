@@ -1,1 +1,0 @@
-username,date,calories,carbs_g,protein_g,fat_g
