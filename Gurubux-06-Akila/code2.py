@@ -54,7 +54,7 @@ def performLoginButtonOperationVerySimple():
 
     try:
         # open file to read users
-        userFileReadObject = open("users.txt", "r")
+        userFileReadObject = open("store_user.txt", "r")
         completeUserFileDataString = userFileReadObject.read().strip()
         userFileReadObject.close()
 
@@ -85,7 +85,7 @@ def performUserRegistrationProcessVeryBasic():
     newPasswordFromInputBox = passwordInputEntryFieldBox.get().strip()
 
     # save user in file
-    userFileAppendObject = open("users.txt", "a")
+    userFileAppendObject = open("store_user.txt", "a")
     userFileAppendObject.write(newUsernameFromInputBox + "," + newPasswordFromInputBox + "\n")
     userFileAppendObject.close()
 
@@ -125,7 +125,7 @@ def saveActivityDataIntoFileFunctionSimple():
     activityIntensityValue = activityIntensityInputBoxField.get().strip()
 
     # write activity in file
-    activityFileObject = open("data.txt", "a")
+    activityFileObject = open("store_data.txt", "a")
     activityFileObject.write(currentlyLoggedInUserNameStorage + ",A," +
                              activityNameValue + "," +
                              activityDurationValue + "," +
@@ -144,7 +144,7 @@ Button(menuFrameAfterLogin, text="Save Activity Data Now", command=saveActivityD
 def saveFoodDataIntoFileFunctionSimple():
 
     # write food data
-    foodFileObject = open("data.txt", "a")
+    foodFileObject = open("store_data.txt", "a")
     foodFileObject.write(currentlyLoggedInUserNameStorage + ",F," +
                          foodNameInputBoxField.get().strip() + "," +
                          calorieInputBoxField.get().strip() + "\n")
@@ -166,7 +166,7 @@ def viewSavedDataForCurrentUserFunction():
 
     try:
         # read data file
-        dataFileReadObject = open("data.txt", "r")
+        dataFileReadObject = open("store_data.txt", "r")
         allLinesFromDataFileList = dataFileReadObject.readlines()
         dataFileReadObject.close()
 
