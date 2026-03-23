@@ -1,12 +1,5 @@
 from tkinter import *
 
-"""
-this is my fitness trakcer project
-i am trying to learn tkinter and file handling together
-code is little messy becuase i am still learning
-some logic may not be perfect but it works fine mostly
-"""
-
 # global file names used in whole program
 globalUserStorageFileName = "users_data_storage_file.txt"
 globalActivityStorageFileName = "daily_activity_records_file.txt"
