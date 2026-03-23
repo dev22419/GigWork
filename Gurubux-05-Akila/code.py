@@ -17,6 +17,7 @@ def loginNOW():
  p = pass_input_box.get().strip()
 
  try:
+  # open users file to read credentials
   f = open("users.txt" , "r")
   data = f.read().strip()
   f.close()
@@ -36,7 +37,7 @@ def loginNOW():
 
 # register
 def registerNOW():  
-
+ """registering new user"""
  u = user_input_box.get().strip()
  p = pass_input_box.get().strip()
 
@@ -109,7 +110,7 @@ def showDataNOW():
    if data_all == "":
         output_box.insert(END,"no data yet")
         return  
-
+   """viewing data"""
    lines = data_all.split("\n")
 
    i = 0  
@@ -131,17 +132,23 @@ def showDataNOW():
 loginFrame = Frame(WinMainAPP)
 loginFrame.pack()
 
+"""login screen"""
 Label(loginFrame , text="username here").pack()
 user_input_box = Entry(loginFrame)
 user_input_box.pack()
 
+"""password screen"""
 Label(loginFrame , text="password here").pack()
 pass_input_box = Entry(loginFrame)
 pass_input_box.pack()
 
+"""login button"""
 Button(loginFrame , text="login now pls", command=loginNOW).pack()
+
+"""register button"""
 Button(loginFrame , text="register now pls", command=registerNOW).pack()
 
+"""message label"""
 msg_label = Label(loginFrame , text="")
 msg_label.pack()
 
@@ -150,10 +157,12 @@ msg_label.pack()
 # MENU 
 menuFrame = Frame(WinMainAPP)
 
+"""activity type"""
 Label(menuFrame , text="activity type").pack()
 act_box = Entry(menuFrame)
 act_box.pack()
 
+"""duration time"""
 Label(menuFrame , text="duration time").pack()
 dur_box = Entry(menuFrame)
 dur_box.pack()
@@ -169,6 +178,7 @@ Label(menuFrame , text="food name").pack()
 food_box = Entry(menuFrame)
 food_box.pack()
 
+# calories number 
 Label(menuFrame , text="calories number").pack()
 cal_box = Entry(menuFrame)
 cal_box.pack()
