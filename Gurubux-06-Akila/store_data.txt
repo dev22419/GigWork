@@ -1,0 +1,3 @@
+user,A,running,10 min,easy
+user,F,fruits,20
+user,A,push-ups,10 x 3 sets,hard
