@@ -1,0 +1,3 @@
+username,date,meal,calories,carbs,protein,fat
+Jenna,Soyabean salad,100.0,30.0,90.0,15.0
+Jena,Egg,60.0,20.0,30.0,5.0

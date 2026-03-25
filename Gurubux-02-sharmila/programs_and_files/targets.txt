@@ -1,0 +1,3 @@
+username,goal_name,target,current
+Jenna,weight_loss,10.0,0
+Jena,gym_visits,7.0,0

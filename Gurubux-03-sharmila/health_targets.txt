@@ -1,0 +1,2 @@
+username,target_type,target_value,current_value
+Alan,protein_daily_g,500.0,0

@@ -1,0 +1,2 @@
+Micheal,20/03,ACT,Swimming,100,Mid,1000
+Micheal,20/03,FOOD,Egg,120,50,80,10

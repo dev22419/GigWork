@@ -1,0 +1,2 @@
+user,goal_type,goal_target,logged_value
+Dan,sessions_target,7.0,0

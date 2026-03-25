@@ -1,0 +1,2 @@
+username,date,calories,carbs_g,protein_g,fat_g
+Dereck,2026-03-24,200.0,100.0,50.0,5.0

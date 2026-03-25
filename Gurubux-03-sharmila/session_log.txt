@@ -1,0 +1,3 @@
+username,workout_type,duration_mins,kcal_burned,note
+Mark,Jogging,50,350,morning walk
+Alan,Cycling,100,600,Beach cycling

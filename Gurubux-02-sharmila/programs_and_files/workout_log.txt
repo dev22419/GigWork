@@ -1,0 +1,3 @@
+username,date,activity,minutes,level
+Jenna,	DANCING,90,High
+Jena,walking,100,High

@@ -116,7 +116,7 @@ def register():
     print("\n--- Register New Account ---")
     username = input("Choose a username: ").strip()
 
-    # check if username is already taken
+    # check if username is already exists by reading all users from the file
     users = read_file(USERS_FILE)
     for user in users:
         if user["username"] == username:
@@ -523,10 +523,10 @@ def main():
         elif choice == "2":
             current_user = register()   # register() returns username or None
         elif choice == "3":
-            print("Goodbye!")
+            print("Closing!")
             return   # exit the whole program
         else:
-            print("Invalid option. Please enter 1, 2, or 3.")
+            print("Invalid option")
 
     # once logged in, go to the main menu
     main_menu(current_user)

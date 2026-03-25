@@ -1,0 +1,2 @@
+username,goal_type,target,current
+Dereck,weight_loss_kg,70.0,0

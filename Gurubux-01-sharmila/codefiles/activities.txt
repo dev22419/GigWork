@@ -1,0 +1,3 @@
+username,date,type,duration_mins,intensity
+Dereck,2026-03-24,running,30,Medium
+Dereck,2026-03-24,swimming,30,High
