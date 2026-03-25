@@ -15,7 +15,7 @@ TODAY = str(date.today())
 # who is using the app now
 current_user = ""
 
-
+# system setup and config finished
 def make_files():
     # create files if not there
     # if files not exist then make them empty
@@ -28,19 +28,21 @@ def make_files():
     f3 = open(FILE_GOALS, "a")
     f3.close()
 
-
+# helper tools for validating inputs
 def bad_text(v):
     # bad means empty or storage separators
     # check if user put weird symbols or nothing
+    # reject empty string inputs
     if len(v) == 0:
         return True
+    # prevent breaking pipe separated logs structure
     if "|" in v:
         return True
     if "\n" in v:
         return True
     return False
 
-
+# check if we have a valid float number
 def number_text(v):
     # simple number checker with max one dot
     # this function check if string is a number or not
@@ -61,7 +63,7 @@ def number_text(v):
 
     return True
 
-
+# functions to read and write from files
 def read_user_map():
     # output: user -> {password, weight}
     # get all users from the file into a list or dict
@@ -85,7 +87,7 @@ def read_user_map():
 
     return users
 
-
+# update user file with new map data
 def write_user_map(users):
     # rewrite full user file from dict
     # save the user data back to the disk
@@ -98,7 +100,7 @@ def write_user_map(users):
 
     f.close()
 
-
+# operations relating to goals fit tracker
 def read_goal_map():
     # output: user -> {steps, calories}
     # read the goal file so we know what they want reach
@@ -122,7 +124,7 @@ def read_goal_map():
 
     return goals
 
-
+# write goals map back into memory disk
 def write_goal_map(goals):
     # rewrite full goal file from dict
     # put the goals into the txt file
@@ -135,16 +137,17 @@ def write_goal_map(goals):
 
     f.close()
 
-
+# row appenders for history logging
 def append_activity_row(user_name, day_text, act_type, dur_text, intensity_text, steps_text):
     # A row format: A|user|date|type|duration|intensity|steps
     # just add one newline for new activity
+    # open in append mode to preserve previous logs history
     f = open(FILE_LOGS, "a")
     row = "A|" + user_name + "|" + day_text + "|" + act_type + "|" + dur_text + "|" + intensity_text + "|" + steps_text + "\n"
     f.write(row)
     f.close()
 
-
+# write food row into log structure
 def append_food_row(user_name, day_text, food_name, cal_text, carb_text, prot_text, fat_text):
     # F row format: F|user|date|name|cal|carb|prot|fat
     # write food into log file
@@ -153,7 +156,7 @@ def append_food_row(user_name, day_text, food_name, cal_text, carb_text, prot_te
     f.write(row)
     f.close()
 
-
+# retrieval functions for user info
 def get_weight_for_user(user_name):
     # read weight for calories burned math
     # i need weight or i cant calcuclate calories
@@ -162,7 +165,7 @@ def get_weight_for_user(user_name):
         return users[user_name]["weight"]
     return 70.0
 
-
+# aggregate numbers for the main dashboard view
 def get_today_data(user_name):
     # collect all today totals from log file
     # this loop look for everything user did today
@@ -206,19 +209,22 @@ def get_today_data(user_name):
                         sval = float(st)
                         total_steps = total_steps + sval
 
-                        # math for burning energy
+                        # Metabolic Equivalent of Task rates
+                        # higher intensity burns significantly more energy per minute
                         met = 3.0
                         if inten == "medium":
                             met = 5.0
                         elif inten == "high":
                             met = 8.0
 
+                        # formula: MET * weight * duration_in_hours = calories burned
                         total_burned = total_burned + (met * weight * (dval / 60.0))
 
                         log_text.insert(END, "ACT  " + act_type + "  " + str(dval) + " min  " + inten + "  " + str(int(sval)) + " steps\n")
                         show_count = show_count + 1
 
                 elif kind == "F" and len(p) >= 8:
+                    # unpack food macros index map from row variables
                     fname = p[3]
                     cal = p[4]
                     carb = p[5]
@@ -246,7 +252,7 @@ def get_today_data(user_name):
 
     return total_steps, total_burned, total_eaten, total_carb, total_prot, total_fat
 
-
+# main trigger for refreshing the app text boxes
 def refresh_summary_action():
     # update summary text and goals progress
     # clear the text box and put new numbers inside
@@ -258,6 +264,7 @@ def refresh_summary_action():
     welcome_label.config(text="logged user: " + current_user)
 
     t_steps, t_burn, t_eat, t_carb, t_prot, t_fat = get_today_data(current_user)
+    # calculate total balance (consumed minus spent)
     net = t_eat - t_burn
 
     summary_text.delete("1.0", END)
@@ -275,6 +282,7 @@ def refresh_summary_action():
         gs = goals[current_user]["steps"]
         gc = goals[current_user]["calories"]
 
+        # percentage of goal reached for today
         step_p = 0.0
         cal_p = 0.0
         if gs > 0:
@@ -308,6 +316,7 @@ def login_click():
     # check if user and pass match
     global current_user
 
+    # pull strings and clean accidental spaces
     u = login_user_entry.get().strip()
     p = login_pass_entry.get().strip()
 
@@ -342,6 +351,7 @@ def register_click():
         return
 
     wv = float(w)
+    # validate that body weight is within human thresholds
     if wv < 25 or wv > 250:
         login_msg.config(text="weight out of range")
         return
@@ -505,14 +515,17 @@ login_frame.pack(padx=8, pady=8)
 
 Label(login_frame, text="basic fit tracker", font=("Arial", 16, "bold")).pack(pady=4)
 Label(login_frame, text="username").pack(anchor=W)
+# text box for entering username
 login_user_entry = Entry(login_frame, width=30)
 login_user_entry.pack()
 
 Label(login_frame, text="password").pack(anchor=W)
+# security entry hiding typed characters
 login_pass_entry = Entry(login_frame, width=30, show="*")
 login_pass_entry.pack()
 
 Label(login_frame, text="weight kg (only for register)").pack(anchor=W)
+# needed to compute how many calories you burn
 login_weight_entry = Entry(login_frame, width=30)
 login_weight_entry.pack()
 
@@ -536,18 +549,22 @@ Label(app_frame, text="today date: " + TODAY).grid(row=1, column=0, columnspan=3
 # activity area
 # part for entering exercise
 Label(app_frame, text="activity type").grid(row=2, column=0, sticky=W)
+# e.g. walk, run, gym
 act_type_entry = Entry(app_frame, width=24)
 act_type_entry.grid(row=2, column=1, sticky=W)
 
 Label(app_frame, text="duration min").grid(row=3, column=0, sticky=W)
+# total minutes spent exercising
 act_duration_entry = Entry(app_frame, width=24)
 act_duration_entry.grid(row=3, column=1, sticky=W)
 
 Label(app_frame, text="intensity low/medium/high").grid(row=4, column=0, sticky=W)
+# allowed keywords only: low, medium, high
 act_intensity_entry = Entry(app_frame, width=24)
 act_intensity_entry.grid(row=4, column=1, sticky=W)
 
 Label(app_frame, text="steps").grid(row=5, column=0, sticky=W)
+# total steps from pedometer counts
 act_steps_entry = Entry(app_frame, width=24)
 act_steps_entry.grid(row=5, column=1, sticky=W)
 
@@ -556,10 +573,12 @@ Button(app_frame, text="add activity", width=14, command=add_activity_click).gri
 # food area
 # part for entering food
 Label(app_frame, text="food name").grid(row=7, column=0, sticky=W)
+# what did you eat today
 food_name_entry = Entry(app_frame, width=24)
 food_name_entry.grid(row=7, column=1, sticky=W)
 
 Label(app_frame, text="food calories").grid(row=8, column=0, sticky=W)
+# energy value of the food in kcal
 food_cal_entry = Entry(app_frame, width=24)
 food_cal_entry.grid(row=8, column=1, sticky=W)
 
@@ -580,6 +599,7 @@ Button(app_frame, text="add food", width=14, command=add_food_click).grid(row=12
 # goals area
 # part for changing goals
 Label(app_frame, text="goal steps").grid(row=13, column=0, sticky=W)
+# target steps for daily health goal
 goal_steps_entry = Entry(app_frame, width=24)
 goal_steps_entry.grid(row=13, column=1, sticky=W)
 

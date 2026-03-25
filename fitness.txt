@@ -1,0 +1,2 @@
+Bob,25/03,FOOD,chicken,300,45,300,20
+Bob,25/03,ACT,walking,30,low,3000
